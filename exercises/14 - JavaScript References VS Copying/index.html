@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+	
+		// Start with strings, numbers and booleans
+		let age = 100;
+		let age2 = age;
+		console.log(age, age2); // 100 100
+		age = 200;
+		console.log(age, age2); // 200 100
+		
+		let name = 'Ana';
+		let name2 = name;
+		console.log(name, name2); // Ana Ana
+		name = 'Paula';
+		console.log(name, name2); // Paula Ana
+		
+		// Let's say we have an array
+		const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+		
+		// and we want to make a copy of it
+		const team = players;
+		
+		console.log(players, team); // ['Wes', 'Sarah', 'Ryan', 'Poppy']
+																// ['Wes', 'Sarah', 'Ryan', 'Poppy']
+		
+		// You might think we can just do something like this:
+		team[3] = 'Lux';
+		console.log(team) // ['Wes', 'Sarah', 'Ryan', 'Lux']
+		console.log(players) // ['Wes', 'Sarah', 'Ryan', 'Lux']
+		
+		// So, how do we fix this? We take a copy instead!
+		const team2 = players.slice();
+		team2[3] = 'Lux';
+		console.log(team2); // ['Wes', 'Sarah', 'Ryan', 'Lux'];
+		console.log(players); // ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+		
+		// Or create a new array and concat the old one in
+		const team3 = [].concat(players);
+		
+		// Or use the new ES6 spread
+		const team4 = [...players];
+		team4 = 'Heee haa';
+		console.log(team4); // ['Wes', 'Sarah', 'Ryan', 'Heee haa']
+		
+		const team5 = Array.from(players)
+		team5[3] = 'cool'
+		console.log(players); // ['Wes', 'Sarah', 'Ryan', 'Poppy']
+		console.log(team5); // ['Wes', 'Sarah', 'Ryan', 'cool']
+		
+		// with Objects
+		const person = {
+			name: 'Ana Paula',
+			age: 80
+		};
+		
+		// and think we make a copy:
+		const captain = person;
+		captain.number = 99;
+		console.log(person); // Object {name: 'Ana Paula', age: 80, number: 99}
+		
+		// How do we take a copy instead?
+		const cap2 = Object.assing({}, person, { number: 99});
+		console.log(cap2); // Object {name: 'Ana Paula', age: 80, number: 99}
+		console.log(person); // Object {name: 'Ana Paula', age: 80}
+		
+		// We will hopefully soon se the object ...spread
+		//const cap3 = {...person};
+		
+		const wes = {
+			name: 'Wes',
+			age: 100,
+			social: {
+				twitter: '@wesbos', 
+				facebook: 'wesbos.developer'
+			}
+		}
+		
+		console.clear();
+		console.log(wes); // Object {name: 'Wes', age: 100, social: Object}
+		
+		const dev = Object.assing({}, wes);
+		console.log(dev); //  Object {name: 'Wes', age: 100, social: Object}
+		dev.name = 'Wesley';
+		console.log(wes); //  Object {name: 'Wes', age: 100, social: Object}
+		console.log(dev); //  Object {name: 'Wesley', age: 100, social: Object}
+		
+		console.log(dev.social); //  Object {twitter: '@wesbos', facebook: 'wesbos.developer'}
+		dev.social.twitter = '@coolman';
+		console.log(dev.social); // Object {twitter: '@coolman', facebook: 'wesbos.developer'}
+		console.log(wes.social); // Object {twitter: '@coolman', facebook: 'wesbos.developer'}
+		
+		const dev2 = JSON.parse(JSON.stringfy(wes));
+		console.log(dev2); // Object {name: 'Wes', age: 100, social: Object}
+		dev2.social.twitter = '@coolman';
+		console.log(wes.social); // Object {twitter: '@wesbos', facebook: 'wesbos.developer'}
+		
+	</script>
+</body>
+</html>

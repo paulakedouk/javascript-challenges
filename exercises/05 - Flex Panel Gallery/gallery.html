@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Image Gallery</title>
+</head>
+
+<body>
+	<style>
+		html {
+			box-sizing: border-box;
+			font-family: 'helvetica neue';
+			font-size: 20px;
+			font-weight: 200;
+		}
+		
+		body {
+			margin: 0
+		}
+		
+		*,
+		*:before,
+		*:after {
+			box-sizing: inherit;
+		}
+		
+		.panel1 {
+			background: url(https://3hsyn13u3q9dhgyrg2qh3tin-wpengine.netdna-ssl.com/wp-content/uploads/2015/12/SplitShire-9892.jpg)
+		}
+		
+		.panel2 {
+			background: url(https://3hsyn13u3q9dhgyrg2qh3tin-wpengine.netdna-ssl.com/wp-content/uploads/2016/01/SplitShire-0450.jpg)
+		}
+		
+		.panel3 {
+			background: url(https://s-media-cache-ak0.pinimg.com/originals/00/87/d8/0087d8c4da5df2ee75b0305de649fae7.jpg)
+		}
+		
+		.panel4 {
+			background: url(https://3hsyn13u3q9dhgyrg2qh3tin-wpengine.netdna-ssl.com/wp-content/uploads/2015/01/SplitShire-1687-1800x1200.jpg)
+		}
+		
+		.panel5 {
+			background: url(http://www.skateslate.com/wp-content/uploads/2016/12/gypsyqueen4.jpg)
+		}
+		
+		.panel {
+			font-size: 20px;
+			text-align: center;
+			align-items: center;
+			color: white;
+			flex: 1;
+			justify-content: center;
+			align-items: center;
+			display: flex;
+			flex-direction: column;
+			transition: font-size 0.7s cubic-bezier(0.6, -0.19, 0.7, -0.11), flex 0.7s cubic-bezier(0.6, -0.19, 0.7, -0.11), background 0.2s;
+			background-position: center;
+		}
+		
+		.panels {
+			min-height: 100vh;
+			overflow: hidden;
+			display: flex;
+		}
+		
+		.panel p {
+			text-transform: uppercase;
+			font-size: 1em;
+		}
+		
+		.panel p:nth-child(2) {
+			font-size: 2em;
+		}
+		
+		.panel > * {
+			margin: 0;
+			width: 100%;
+			transition: transform 0.5s;
+			flex: 1 0 auto;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		
+		.panel > *:first-child {
+			transform: translateY(-100%);
+		}
+		
+		.panel.open-active > *:first-child {
+			transform: translateY(0);
+		}
+		
+		.panel > *:last-child {
+			transform: translateY(100%);
+		}
+		
+		.panel.open-active > *:last-child {
+			transform: translateY(0);
+		}
+		
+		
+		
+		.panel.open {
+			flex: 5;
+			font-size: 20px;
+		}
+	</style>
+
+	<div class="panels">
+		<div class="panel panel1">
+			<p>Hey</p>
+			<p>Let's</p>
+			<p>Dance</p>
+		</div>
+		<div class="panel panel2">
+			<p>Give</p>
+			<p>Take</p>
+			<p>Receive</p>
+		</div>
+		<div class="panel panel3">
+			<p>Experience</p>
+			<p>It</p>
+			<p>Today</p>
+		</div>
+		<div class="panel panel4">
+			<p>Give</p>
+			<p>All</p>
+			<p>You can</p>
+		</div>
+		<div class="panel panel5">
+			<p>Life</p>
+			<p>In</p>
+			<p>Motion</p>
+		</div>
+	</div>
+
+	<script>
+		const panels = document.querySelectorAll('.panel');
+
+		function toggleOpen() {
+			this.classList.toggle('open');
+		}
+
+		function toggleActive(e) {
+			if (e.propertyName.includes('flex')) {
+				this.classList.toggle('open-active');
+			}
+		}
+
+		panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+		panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
+	</script>
+</body>
+
+</html>

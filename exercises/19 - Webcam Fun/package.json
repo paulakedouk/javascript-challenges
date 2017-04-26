@@ -1,0 +1,12 @@
+{
+	"name": "webcam",
+	"version": "1.0.0",
+	"description": "Nitish Dayal, Software & Applications Developer - [Contact](http://nitishdayal.me)   Last Commit Date: Dec 30, 2016",
+	"main": "scripts-finished.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "browser-sync start --server --files '*.css, *.html, *.js'"
+	},
+	"author": "",
+	"license": "ISC"
+}

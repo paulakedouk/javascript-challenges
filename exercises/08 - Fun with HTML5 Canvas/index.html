@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>HTML5 Canvas</title>
+	<style>
+		html,
+		body {
+			margin: 0;
+		}
+	</style>
+</head>
+
+<body>
+	<canvas id="draw" width="800" height="800"></canvas>
+
+	<script>
+		// Declare & define variable reference to canvas HTMLElement
+		const canvas = document.querySelector('#draw');
+		// Declare & define variable reference to the CONTEXT of the canvas (what's in it)
+		const ctx = canvas.getContext('2d');
+
+		canvas.width = window.innerWidth; // Width matches the available window width
+		canvas.height = window.innerHeight; // Height matches the available window height
+
+		ctx.lineJoin = 'round'; // Intersecting/connected lines will have a smooth join
+		ctx.lineCap = 'round'; // End of line will be smooth
+		ctx.lineWidth = 100;
+
+		let isDrawing = false; // To only draws when mouse is down
+
+		// Declare & define variable reference for current & last mouse location
+		let lastX = 0;
+		let lastY = 0;
+
+		// Declare & define variables to change line hue & line width
+		let hue = 0;
+
+		// Its going to be building up
+		let direction = true;
+
+		// Mousedown event handler function
+		function draw(e) {
+			
+			if (!isDrawing) return; // Stop the function from running when they aren't moused down
+			console.log(e);
+			
+			ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`; // Set hue, saturation, & luminosity
+			ctx.beginPath(); // Begin or reset current path
+			// Start from
+			ctx.moveTo(lastX, lastY); // Starting point of path
+			// Go to
+			ctx.lineTo(e.offsetX, e.offsetY); // Ending point of path
+			ctx.stroke(); // Draw the defined path on the canvas
+			[lastX, lastY] = [e.offsetX, e.offsetY];
+
+			//	hue++;
+			//	if(hue >= 360) {
+			//		hue = 0;
+			//	}
+			hue >= 360 ? hue = 0 : hue++; // Ternary operator to reset/increase hue value
+
+			// Width of line increases or decreases, staying within a value of 1-100.
+			if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+				// Flip the direction
+				direction = !direction;
+			};
+			if (direction) {
+				ctx.lineWidth++;
+			} else {
+				ctx.lineWidth--;
+			}
+		}
+
+		// Attach event listeners
+		canvas.addEventListener('mousedown', (e) => {
+			// Update values based on previous & current mouse locations using array destructuring
+			isDrawing = true;
+			[lastX, lastY] = [e.offsetX, e.offsetY];
+		});
+
+		canvas.addEventListener('mousemove', draw);
+		canvas.addEventListener('mouseup', () => isDrawing = false);
+		canvas.addEventListener('mouseout', () => isDrawing = false);
+	</script>
+
+</body>
+
+</html>
