@@ -10,7 +10,7 @@
 
     <div class="voiceinator">
 
-      <h1>The Voiceinator 5000</h1>
+      <h1>Speech change :)</h1>
 
       <select name="voice" id="voices">
         <option value="">Select A Voice</option>
@@ -22,7 +22,7 @@
       <label for="pitch">Pitch:</label>
 
       <input name="pitch" type="range" min="0" max="2" step="0.1">
-      <textarea name="text">Hello! I love JavaScript 👍</textarea>
+      <textarea name="text">Hello! My name is Ana and I love Javascript! 👍</textarea>
       <button id="stop">Stop!</button>
       <button id="speak">Speak</button>
 
@@ -30,11 +30,60 @@
 
 <script>
   const msg = new SpeechSynthesisUtterance();
-  let voices = [];
+  
+	// Empty array here which our voices are going to be dumpt into to.
+	let voices = [];
   const voicesDropdown = document.querySelector('[name="voice"]');
   const options = document.querySelectorAll('[type="range"], [name="text"]');
   const speakButton = document.querySelector('#speak');
   const stopButton = document.querySelector('#stop');
+	
+	// When page is load, whateaver is in that text area, I want to set that to be default
+	msg.text = document.querySelector('[name="text"]').value;
+	
+	function populateVoices() {
+		// Overwrite it
+    voices = this.getVoices();
+		// Loop over and set them as a options in this drop down
+    voicesDropdown.innerHTML = voices
+      //.filter(voice => voice.lang.includes('en'))
+			// Load voices options on the page
+      .map(voice => `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`)
+      .join('');
+  }
+	
+	// Called when we change that drop down
+	function setVoice() {
+		// Set the voice to find corresponding speech synthesis voice object
+		// Loop over every single one of these voices in the array and it's going to find the one where its name attribute is the same as the option that was current select
+    msg.voice = voices.find(voice => voice.name === this.value);
+		toggle();
+  }
+	
+	// Every time I change, I want to restart it
+	function toggle(startOver = true) {
+    // Stop from speaking
+		speechSynthesis.cancel();
+    if (startOver) {
+      speechSynthesis.speak(msg);
+    }
+  }
+	
+	// Bounde all of these options, when they change, what property they change, which is this.name, and what it was changed to whitch this.valeu
+	function setOption() {
+    console.log(this.name, this.value);
+		msg[this.name] = this.value;
+    toggle();
+  }
+	
+	// Global speechSynthesis and we can add EventListener and there is an event called voiceschanged, and when that happens, we're going to populateVoices
+	speechSynthesis.addEventListener('voiceschanged', populateVoices);
+	
+	voicesDropdown.addEventListener('change', setVoice);
+	options.forEach(option => option.addEventListener('change', setOption));
+	// Click button
+  speakButton.addEventListener('click', toggle);
+  stopButton.addEventListener('click', () => toggle(false));
 </script>
 
 </body>
