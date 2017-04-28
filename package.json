@@ -1,0 +1,20 @@
+{
+  "name": "javascript-challenges-master",
+  "version": "1.0.0",
+  "description": "## Table Of Contents",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+		"start": "http-server -a localhost -p 8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulakedouk/javascript-challenges.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paulakedouk/javascript-challenges/issues"
+  },
+  "homepage": "https://github.com/paulakedouk/javascript-challenges#readme"
+}
