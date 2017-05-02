@@ -35,6 +35,46 @@
   </div>
 
 <script>
+	// Grab the slider
+  const slider = document.querySelector('.items');
+  // Use let because they're gonna be updated
+	let isDown = false;
+	// Not assigning any values to them, because that's gonna be happening in our events. 
+  let startX;
+  let scrollLeft;
+
+  slider.addEventListener('mousedown', (e) => {
+    isDown = true;
+    slider.classList.add('active');
+		// Record where they that click was
+		// Subtracting it will handle that offset on left
+    startX = e.pageX - slider.offsetLeft;
+		// Figure out where the initial scroll was
+    scrollLeft = slider.scrollLeft;
+  });
+
+  slider.addEventListener('mouseleave', () => {
+    isDown = false;
+    slider.classList.remove('active');
+  });
+
+  slider.addEventListener('mouseup', () => {
+    isDown = false;
+    slider.classList.remove('active');
+  });
+
+  slider.addEventListener('mousemove', (e) => {
+    if (!isDown) return;  // stop the fn from running
+    // Will STOP any selected of text that's inside of there or any of the sliding to the left or any weird stuff that the brower might think you're
+		e.preventDefault();
+		// Where the cursor is
+    const x = e.pageX - slider.offsetLeft;
+		// X is position actual from mouse and startX is firts position on click
+    const walk = (x - startX) * 3;
+		// If not use 'scrollLeft -' is recalculating the scrollLeft every single time
+    slider.scrollLeft = scrollLeft - walk;
+  });
+
 </script>
 
   </body>
