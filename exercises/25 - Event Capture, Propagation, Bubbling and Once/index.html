@@ -39,7 +39,33 @@
 
 <button></button>
 <script>
-
+	// Bubbling: where the browser will figure out what you clicked on, but also trigger click up every way up
+	const divs = document.querySelectorAll('div');
+	const button = document.querySelector('button');
+	
+	function logText(e) {
+		console.log(this.classList.value);
+		//e.stopPropagation(); // Stop bubbling
+		//console.log(this);
+	}
+	
+	document.body.addEventListener('click', logText);
+	
+	//divs.forEach(div => div.addEventListener('click', logText));
+	divs.forEach(div => div.addEventListener('click', logText, {
+		// This function, logText, isn't going to get run on the bubble up, it's going to get run on the capture down
+		capture: false,
+		// It will listen for a click and them unbinding itself, the same (div.removeEventListener('click', logText)); 
+		once: true
+	}));
+	
+	button.addEventListener('click', () => {
+		console.log('Click!!!!');
+	}, {
+		// You can click only once
+		once: true
+	});
+	
 </script>
 </body>
 </html>
